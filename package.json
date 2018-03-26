@@ -1,0 +1,25 @@
+{
+  "name": "bs-lottie-react-native",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "Piotrek Dubiel <piotr.dubiel@polidea.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "bsb -make-world",
+    "start": "bsb -make-world -w",
+    "clean": "bsb -clean-world",
+    "preversion": "npm run build",
+    "pretest": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "bs-platform": "^2.2.3",
+    "reason-react": "^0.3.4"
+  },
+  "peerDependencies": {
+    "lottie-react-native": "^2.3.2",
+    "bs-react-native": "^0.6.0",
+    "reason-react": "^0.3.4"
+  }
+}
