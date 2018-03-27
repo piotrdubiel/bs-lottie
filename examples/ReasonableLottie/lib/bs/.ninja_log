@@ -1,6 +1,0 @@
-# ninja log v5
-0	37	1522106343	src/app.mlast	6bbcf56b885a2f21
-37	44	1522106343	src/app.mlast.d	e1821b66e1ed5cc1
-0	21	1522106343	src/app.cmj	ff5154b05ee23023
-0	21	1522106343	/Users/piotrekd/workspace/reasonml/bs-lottie-react-native/examples/ReasonableLottie/lib/js/src/app.js	ff5154b05ee23023
-0	21	1522106343	src/app.cmi	ff5154b05ee23023

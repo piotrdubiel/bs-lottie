@@ -1,0 +1,14 @@
+{
+  "name": "reasonable-lottie",
+  "reason": {
+    "react-jsx": 2
+  },
+  "refmt": 3,
+  "bsc-flags": ["-bs-super-errors"],
+  "bs-dependencies": ["bs-react-native", "reason-react", "../../bs-lottie-react-native"],
+  "sources": [
+    {
+      "dir": "src"
+    }
+  ]
+}
