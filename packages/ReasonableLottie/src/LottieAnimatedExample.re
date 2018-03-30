@@ -16,9 +16,14 @@ type state = {
 type action =
   | ChangeExample(Example.t)
   | ChangeProgress(float)
+  | UpdateProgress(float)
+  | ChangeDuration(float)
   | ToggleLoop
   | ToggleInverse
-  | ToggleImperative;
+  | ToggleImperative
+  | Play
+  | Played
+  | Stop;
 
 let component = ReasonReact.reducerComponent("LottieAnimatedExample");
 
@@ -43,7 +48,7 @@ let styles =
             flexDirection(Row),
             justifyContent(SpaceAround),
             alignItems(Center),
-            paddingVertical(Pt(8.))
+            paddingVertical(Pt(16.))
           ]),
         "playButton":
           style([
@@ -65,20 +70,6 @@ let styles =
     )
   );
 
-let play = (state) =>
-  Animated.CompositeAnimation.start(
-    Animated.Timing.animate(
-      ~value=state.progress,
-      ~toValue=`raw(1.0),
-      ~easing=Animated.Easing.linear,
-      ~duration=state.duration,
-      ()
-    ),
-    ()
-  );
-
-let stop = (state) => Animated.Value.setValue(state.progress, 0.);
-
 let make = (_children) => {
   ...component,
   initialState: () => {
@@ -86,35 +77,73 @@ let make = (_children) => {
     rawProgress: 0.,
     example: Example.examples[0],
     duration: 3000.0,
-    isPlaying: true,
+    isPlaying: false,
     isInverse: false,
     useImperative: false,
     loop: true
   },
-  didMount: ({state}) => {
-    play(state);
-    ReasonReact.NoUpdate
-  },
+  subscriptions: ({state, send}) => [
+    Sub(
+      () =>
+        Animated.Value.addListener(state.progress, (value) => send(UpdateProgress(value##value))),
+      Animated.Value.removeListener(state.progress)
+    )
+  ],
   reducer: (action, state) =>
     switch action {
-    | ChangeExample(example) =>
-      ReasonReact.UpdateWithSideEffects(
-        {...state, example, progress: Animated.Value.create(0.0)},
-        (
-          ({state}) => {
-            play(state);
-            Animated.Value.addListener(state.progress, (value) => Js.Console.log(value)) |> ignore
-          }
-        )
-      )
+    | ChangeExample(example) => ReasonReact.Update({...state, example})
     | ChangeProgress(rawProgress) =>
-      ReasonReact.Update({...state, rawProgress, progress: Animated.Value.create(rawProgress)})
+      ReasonReact.UpdateWithSideEffects(
+        {...state, rawProgress},
+        (({state}) => Animated.Value.setValue(state.progress, rawProgress))
+      )
+    | UpdateProgress(rawProgress) => ReasonReact.Update({...state, rawProgress})
+    | ChangeDuration(duration) => ReasonReact.Update({...state, duration})
     | ToggleLoop => ReasonReact.Update({...state, loop: ! state.loop})
     | ToggleInverse => ReasonReact.Update({...state, isInverse: ! state.isInverse})
     | ToggleImperative =>
       ReasonReact.UpdateWithSideEffects(
         {...state, useImperative: ! state.useImperative},
-        (({state}) => stop(state))
+        (({send}) => send(Stop))
+      )
+    | Play =>
+      ReasonReact.UpdateWithSideEffects(
+        {...state, isPlaying: true},
+        (
+          ({state, send}) => {
+            Animated.Value.setValue(state.progress, 0.);
+            Animated.CompositeAnimation.start(
+              Animated.Timing.animate(
+                ~value=state.progress,
+                ~toValue=`raw(1.0),
+                ~easing=Animated.Easing.linear,
+                ~duration=state.duration,
+                ()
+              ),
+              ~callback=
+                (result) =>
+                  if (result##finished == Js.true_) {
+                    send(Played)
+                  },
+              ()
+            )
+          }
+        )
+      )
+    | Played =>
+      ReasonReact.UpdateWithSideEffects(
+        {...state, isPlaying: state.loop},
+        (
+          ({state, send}) =>
+            if (state.loop) {
+              send(Play)
+            }
+        )
+      )
+    | Stop =>
+      ReasonReact.UpdateWithSideEffects(
+        {...state, isPlaying: false},
+        (({state}) => Animated.Value.setValue(state.progress, state.rawProgress))
       )
     },
   render: ({state, send}) => {
@@ -143,6 +172,7 @@ let make = (_children) => {
           loop=state.loop
           source=(state.example.getJson())
           progress=(Animated(state.progress))
+          enableMergePathsAndroidForKitKatAndAbove=true
         />
       </View>
       <View style=Style.(style([paddingBottom(Pt(20.)), paddingHorizontal(Pt(10.))]))>
@@ -150,7 +180,8 @@ let make = (_children) => {
           <TouchableOpacity onPress=(() => send(ToggleLoop))>
             <Image style=loopIconStyle resizeMode=`contain source=(Required(loopIcon)) />
           </TouchableOpacity>
-          <TouchableOpacity style=styles##playButton onPress=(() => play(state))>
+          <TouchableOpacity
+            style=styles##playButton onPress=(() => state.isPlaying ? send(Stop) : send(Play))>
             <Image
               style=styles##playButtonIcon
               resizeMode=`contain
@@ -176,6 +207,20 @@ let make = (_children) => {
             maximumValue=1.
             value=state.rawProgress
             onValueChange=((value) => send(ChangeProgress(value)))
+            disabled=state.useImperative
+          />
+        </View>
+        <View style=Style.(style([paddingBottom(Pt(10.))]))>
+          <View>
+            <Text>
+              (s("Duration: " ++ string_of_float(Js.Math.round(state.duration)) ++ "ms"))
+            </Text>
+          </View>
+          <Slider
+            minimumValue=50.
+            maximumValue=10000.
+            value=state.duration
+            onValueChange=((value) => send(ChangeDuration(value)))
             disabled=state.useImperative
           />
         </View>

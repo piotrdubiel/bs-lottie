@@ -63,6 +63,7 @@ external makeProps :
     ~resizeMode: string=?,
     ~imageAssetsFolder: string=?,
     ~hardwareAccelerationAndroid: Js.boolean=?,
+    ~enableMergePathsAndroidForKitKatAndAbove: Js.boolean=?,
     unit
   ) =>
   _ =
@@ -79,6 +80,7 @@ let make =
       ~resizeMode: option(resizeMode)=?,
       ~imageAssetsFolder=?,
       ~hardwareAccelerationAndroid=?,
+      ~enableMergePathsAndroidForKitKatAndAbove=?,
       children
     ) =>
   ReasonReact.wrapJsForReason(
@@ -94,6 +96,7 @@ let make =
         ~resizeMode=?Js.Option.map((. mode) => resizeModeToJs(mode), resizeMode),
         ~imageAssetsFolder?,
         ~hardwareAccelerationAndroid=?Utils.optBoolToOptJsBoolean(hardwareAccelerationAndroid),
+        ~enableMergePathsAndroidForKitKatAndAbove=?Utils.optBoolToOptJsBoolean(enableMergePathsAndroidForKitKatAndAbove),
         ()
       ),
     children

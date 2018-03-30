@@ -1,9 +1,8 @@
 .DS_Store
 node_modules
-lib/bs
-lib/ocaml
+**/lib/bs
+**/lib/ocaml
 .merlin
 .vscode
 npm-debug.log
 yarn-error.log
-example/

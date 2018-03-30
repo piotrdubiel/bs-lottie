@@ -5,6 +5,7 @@ var Block = require("bs-platform/lib/js/block.js");
 var Curry = require("bs-platform/lib/js/curry.js");
 var Example = require("./Example.js");
 var Caml_array = require("bs-platform/lib/js/caml_array.js");
+var Pervasives = require("bs-platform/lib/js/pervasives.js");
 var ReasonReact = require("reason-react/lib/js/src/ReasonReact.js");
 var ExamplePicker = require("./ExamplePicker.js");
 var Text$BsReactNative = require("bs-react-native/lib/js/src/components/text.js");
@@ -40,7 +41,7 @@ var styles = StyleSheet$BsReactNative.create({
               /* :: */[
                 Style$BsReactNative.alignItems(/* Center */2),
                 /* :: */[
-                  Style$BsReactNative.paddingVertical(/* Pt */Block.__(0, [8])),
+                  Style$BsReactNative.paddingVertical(/* Pt */Block.__(0, [16])),
                   /* [] */0
                 ]
               ]
@@ -115,34 +116,8 @@ var styles = StyleSheet$BsReactNative.create({
           ])
     });
 
-function play(state) {
-  return Curry._3(Animated$BsReactNative.CompositeAnimation[/* start */1], Curry.app(Animated$BsReactNative.Value[/* Timing */19][/* animate */0], [
-                  state[/* progress */0],
-                  /* `raw */[
-                    5690856,
-                    1.0
-                  ],
-                  /* Some */[Animated$BsReactNative.Easing[/* linear */5]],
-                  /* Some */[state[/* duration */3]],
-                  /* None */0,
-                  /* None */0,
-                  /* None */0,
-                  /* None */0,
-                  /* None */0,
-                  /* () */0
-                ]), /* None */0, /* () */0);
-}
-
-function stop(state) {
-  return Curry._2(Animated$BsReactNative.Value[/* setValue */1], state[/* progress */0], 0);
-}
-
 function make() {
   var newrecord = component.slice();
-  newrecord[/* didMount */4] = (function (param) {
-      play(param[/* state */2]);
-      return /* NoUpdate */0;
-    });
   newrecord[/* render */9] = (function (param) {
       var send = param[/* send */4];
       var state = param[/* state */2];
@@ -182,7 +157,7 @@ function make() {
                                                 styles.lottieView,
                                                 lottieInverseStyle,
                                                 lottieWidthStyle
-                                              ])], /* None */0, /* None */0, /* None */0, /* array */[]))])),
+                                              ])], /* None */0, /* None */0, /* None */0, /* Some */[/* true */1], /* array */[]))])),
                       ReasonReact.element(/* None */0, /* None */0, View$BsReactNative.make(/* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[Style$BsReactNative.style(/* :: */[
                                         Style$BsReactNative.paddingBottom(/* Pt */Block.__(0, [20])),
                                         /* :: */[
@@ -195,7 +170,12 @@ function make() {
                                                           return Curry._1(send, /* ToggleLoop */0);
                                                         })], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[ReasonReact.element(/* None */0, /* None */0, Image$BsReactNative.make(/* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[/* contain */427065300], /* Some */[/* Required */Block.__(1, [loopIcon])], /* Some */[loopIconStyle], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[]))])),
                                           ReasonReact.element(/* None */0, /* None */0, TouchableOpacity$BsReactNative.make(/* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[styles.playButton], /* None */0, /* Some */[(function () {
-                                                          return play(state);
+                                                          var match = state[/* isPlaying */4];
+                                                          if (match !== 0) {
+                                                            return Curry._1(send, /* Stop */5);
+                                                          } else {
+                                                            return Curry._1(send, /* Play */3);
+                                                          }
                                                         })], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[ReasonReact.element(/* None */0, /* None */0, Image$BsReactNative.make(/* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[/* contain */427065300], /* Some */[/* Required */Block.__(1, [match$3 !== 0 ? pauseIcon : playIcon])], /* Some */[styles.playButtonIcon], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[]))])),
                                           ReasonReact.element(/* None */0, /* None */0, TouchableOpacity$BsReactNative.make(/* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[(function () {
                                                           return Curry._1(send, /* ToggleInverse */1);
@@ -225,6 +205,15 @@ function make() {
                                           ReasonReact.element(/* None */0, /* None */0, Slider$BsReactNative.make(/* Some */[state[/* useImperative */6]], /* None */0, /* Some */[1], /* None */0, /* Some */[0], /* None */0, /* Some */[(function (value) {
                                                           return Curry._1(send, /* ChangeProgress */Block.__(1, [value]));
                                                         })], /* None */0, /* Some */[state[/* rawProgress */1]], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[]))
+                                        ])),
+                                ReasonReact.element(/* None */0, /* None */0, View$BsReactNative.make(/* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[Style$BsReactNative.style(/* :: */[
+                                                  Style$BsReactNative.paddingBottom(/* Pt */Block.__(0, [10])),
+                                                  /* [] */0
+                                                ])], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[
+                                          ReasonReact.element(/* None */0, /* None */0, View$BsReactNative.make(/* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[ReasonReact.element(/* None */0, /* None */0, Text$BsReactNative.make(/* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* array */["Duration: " + (Pervasives.string_of_float(Math.round(state[/* duration */3])) + "ms")]))])),
+                                          ReasonReact.element(/* None */0, /* None */0, Slider$BsReactNative.make(/* Some */[state[/* useImperative */6]], /* None */0, /* Some */[10000], /* None */0, /* Some */[50], /* None */0, /* Some */[(function (value) {
+                                                          return Curry._1(send, /* ChangeDuration */Block.__(3, [value]));
+                                                        })], /* None */0, /* Some */[state[/* duration */3]], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[]))
                                         ]))
                               ]))
                     ]));
@@ -235,7 +224,7 @@ function make() {
               /* rawProgress */0,
               /* example */Caml_array.caml_array_get(Example.examples, 0),
               /* duration */3000.0,
-              /* isPlaying : true */1,
+              /* isPlaying : false */0,
               /* isInverse : false */0,
               /* useImperative : false */0,
               /* loop : true */1
@@ -255,30 +244,101 @@ function make() {
               return /* UpdateWithSideEffects */Block.__(3, [
                         (newrecord$2[/* useImperative */6] = 1 - state[/* useImperative */6], newrecord$2),
                         (function (param) {
-                            return stop(param[/* state */2]);
+                            return Curry._1(param[/* send */4], /* Stop */5);
+                          })
+                      ]);
+          case 3 : 
+              var newrecord$3 = state.slice();
+              return /* UpdateWithSideEffects */Block.__(3, [
+                        (newrecord$3[/* isPlaying */4] = /* true */1, newrecord$3),
+                        (function (param) {
+                            var send = param[/* send */4];
+                            var state = param[/* state */2];
+                            Curry._2(Animated$BsReactNative.Value[/* setValue */1], state[/* progress */0], 0);
+                            return Curry._3(Animated$BsReactNative.CompositeAnimation[/* start */1], Curry.app(Animated$BsReactNative.Value[/* Timing */19][/* animate */0], [
+                                            state[/* progress */0],
+                                            /* `raw */[
+                                              5690856,
+                                              1.0
+                                            ],
+                                            /* Some */[Animated$BsReactNative.Easing[/* linear */5]],
+                                            /* Some */[state[/* duration */3]],
+                                            /* None */0,
+                                            /* None */0,
+                                            /* None */0,
+                                            /* None */0,
+                                            /* None */0,
+                                            /* () */0
+                                          ]), /* Some */[(function (result) {
+                                            if (result.finished === true) {
+                                              return Curry._1(send, /* Played */4);
+                                            } else {
+                                              return 0;
+                                            }
+                                          })], /* () */0);
+                          })
+                      ]);
+          case 4 : 
+              var newrecord$4 = state.slice();
+              return /* UpdateWithSideEffects */Block.__(3, [
+                        (newrecord$4[/* isPlaying */4] = state[/* loop */7], newrecord$4),
+                        (function (param) {
+                            if (param[/* state */2][/* loop */7]) {
+                              return Curry._1(param[/* send */4], /* Play */3);
+                            } else {
+                              return 0;
+                            }
+                          })
+                      ]);
+          case 5 : 
+              var newrecord$5 = state.slice();
+              return /* UpdateWithSideEffects */Block.__(3, [
+                        (newrecord$5[/* isPlaying */4] = /* false */0, newrecord$5),
+                        (function (param) {
+                            var state = param[/* state */2];
+                            return Curry._2(Animated$BsReactNative.Value[/* setValue */1], state[/* progress */0], state[/* rawProgress */1]);
                           })
                       ]);
           
         }
-      } else if (action.tag) {
-        var rawProgress = action[0];
-        var newrecord$3 = state.slice();
-        return /* Update */Block.__(0, [(newrecord$3[/* progress */0] = Curry._1(Animated$BsReactNative.Value[/* create */0], rawProgress), newrecord$3[/* rawProgress */1] = rawProgress, newrecord$3)]);
       } else {
-        var newrecord$4 = state.slice();
-        return /* UpdateWithSideEffects */Block.__(3, [
-                  (newrecord$4[/* progress */0] = Curry._1(Animated$BsReactNative.Value[/* create */0], 0.0), newrecord$4[/* example */2] = action[0], newrecord$4),
-                  (function (param) {
-                      var state = param[/* state */2];
-                      play(state);
-                      Curry._2(Animated$BsReactNative.Value[/* addListener */5], state[/* progress */0], (function (value) {
-                              console.log(value);
-                              return /* () */0;
-                            }));
-                      return /* () */0;
-                    })
-                ]);
+        switch (action.tag | 0) {
+          case 0 : 
+              var newrecord$6 = state.slice();
+              return /* Update */Block.__(0, [(newrecord$6[/* example */2] = action[0], newrecord$6)]);
+          case 1 : 
+              var rawProgress = action[0];
+              var newrecord$7 = state.slice();
+              return /* UpdateWithSideEffects */Block.__(3, [
+                        (newrecord$7[/* rawProgress */1] = rawProgress, newrecord$7),
+                        (function (param) {
+                            return Curry._2(Animated$BsReactNative.Value[/* setValue */1], param[/* state */2][/* progress */0], rawProgress);
+                          })
+                      ]);
+          case 2 : 
+              var newrecord$8 = state.slice();
+              return /* Update */Block.__(0, [(newrecord$8[/* rawProgress */1] = action[0], newrecord$8)]);
+          case 3 : 
+              var newrecord$9 = state.slice();
+              return /* Update */Block.__(0, [(newrecord$9[/* duration */3] = action[0], newrecord$9)]);
+          
+        }
       }
+    });
+  newrecord[/* subscriptions */13] = (function (param) {
+      var send = param[/* send */4];
+      var state = param[/* state */2];
+      return /* :: */[
+              /* Sub */[
+                (function () {
+                    return Curry._2(Animated$BsReactNative.Value[/* addListener */5], state[/* progress */0], (function (value) {
+                                  return Curry._1(send, /* UpdateProgress */Block.__(2, [value.value]));
+                                }));
+                  }),
+                Curry._1(Animated$BsReactNative.Value[/* removeListener */6], state[/* progress */0])
+              ],
+              /* [] */0
+            ];
     });
   return newrecord;
 }
@@ -293,7 +353,5 @@ exports.inverseIcon = inverseIcon;
 exports.playButtonSize = playButtonSize;
 exports.s = s;
 exports.styles = styles;
-exports.play = play;
-exports.stop = stop;
 exports.make = make;
 /* component Not a pure module */

@@ -13,6 +13,10 @@
 
   "main": "index.js",
   "author": "Piotrek Dubiel <piotr.dubiel@polidea.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/piotrdubiel/bs-lottie.git"
+  },
   "license": "MIT",
   "scripts": {
     "build": "bsb -make-world",

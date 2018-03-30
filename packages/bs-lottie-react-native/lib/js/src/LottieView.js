@@ -44,7 +44,7 @@ function resizeModeFromJs(param) {
   return Js_mapperRt.revSearch(3, jsMapperConstantArray, param);
 }
 
-function make(source, progress, speed, autoPlay, loop, style, resizeMode, imageAssetsFolder, hardwareAccelerationAndroid, children) {
+function make(source, progress, speed, autoPlay, loop, style, resizeMode, imageAssetsFolder, hardwareAccelerationAndroid, enableMergePathsAndroidForKitKatAndAbove, children) {
   var tmp = {
     source: sourceToJs(source)
   };
@@ -78,6 +78,10 @@ function make(source, progress, speed, autoPlay, loop, style, resizeMode, imageA
   var tmp$5 = Utils$BsLottieReactNative.optBoolToOptJsBoolean(hardwareAccelerationAndroid);
   if (tmp$5) {
     tmp.hardwareAccelerationAndroid = tmp$5[0];
+  }
+  var tmp$6 = Utils$BsLottieReactNative.optBoolToOptJsBoolean(enableMergePathsAndroidForKitKatAndAbove);
+  if (tmp$6) {
+    tmp.enableMergePathsAndroidForKitKatAndAbove = tmp$6[0];
   }
   return ReasonReact.wrapJsForReason(LottieReactNative, tmp, children);
 }
