@@ -1,1 +1,1 @@
-src/LottieAnimatedExample.cmj :
+src/LottieAnimatedExample.cmj : src/Example.cmj src/ExamplePicker.cmj

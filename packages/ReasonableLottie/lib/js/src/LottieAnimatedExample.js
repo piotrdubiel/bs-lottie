@@ -3,49 +3,297 @@
 
 var Block = require("bs-platform/lib/js/block.js");
 var Curry = require("bs-platform/lib/js/curry.js");
+var Example = require("./Example.js");
+var Caml_array = require("bs-platform/lib/js/caml_array.js");
 var ReasonReact = require("reason-react/lib/js/src/ReasonReact.js");
+var ExamplePicker = require("./ExamplePicker.js");
+var Text$BsReactNative = require("bs-react-native/lib/js/src/components/text.js");
+var View$BsReactNative = require("bs-react-native/lib/js/src/components/view.js");
+var Image$BsReactNative = require("bs-react-native/lib/js/src/components/image.js");
+var Style$BsReactNative = require("bs-react-native/lib/js/src/style.js");
+var Slider$BsReactNative = require("bs-react-native/lib/js/src/components/slider.js");
+var Switch$BsReactNative = require("bs-react-native/lib/js/src/components/switch.js");
 var Animated$BsReactNative = require("bs-react-native/lib/js/src/animated.js");
+var StyleSheet$BsReactNative = require("bs-react-native/lib/js/src/styleSheet.js");
 var LottieView$BsLottieReactNative = require("bs-lottie-react-native/lib/js/src/LottieView.js");
+var TouchableOpacity$BsReactNative = require("bs-react-native/lib/js/src/components/touchableOpacity.js");
 
 var component = ReasonReact.reducerComponent("LottieAnimatedExample");
 
-var animations = {
-  lottie1: ( require('./animations/LottieLogo1.json'))
-};
+var playIcon = require("./images/play.png");
+
+var pauseIcon = require("./images/pause.png");
+
+var loopIcon = require("./images/loop.png");
+
+var inverseIcon = require("./images/inverse.png");
+
+function s(prim) {
+  return prim;
+}
+
+var styles = StyleSheet$BsReactNative.create({
+      controlsRow: Style$BsReactNative.style(/* :: */[
+            Style$BsReactNative.flexDirection(/* Row */0),
+            /* :: */[
+              Style$BsReactNative.justifyContent(/* SpaceAround */4),
+              /* :: */[
+                Style$BsReactNative.alignItems(/* Center */2),
+                /* :: */[
+                  Style$BsReactNative.paddingVertical(/* Pt */Block.__(0, [8])),
+                  /* [] */0
+                ]
+              ]
+            ]
+          ]),
+      playButton: Style$BsReactNative.style(/* :: */[
+            Style$BsReactNative.width(/* Pt */Block.__(0, [60])),
+            /* :: */[
+              Style$BsReactNative.height(/* Pt */Block.__(0, [60])),
+              /* :: */[
+                Style$BsReactNative.borderRadius(60 / 2),
+                /* :: */[
+                  Style$BsReactNative.backgroundColor("#1d8bf1"),
+                  /* :: */[
+                    Style$BsReactNative.justifyContent(/* Center */2),
+                    /* :: */[
+                      Style$BsReactNative.alignItems(/* Center */2),
+                      /* [] */0
+                    ]
+                  ]
+                ]
+              ]
+            ]
+          ]),
+      playButtonIcon: Style$BsReactNative.style(/* :: */[
+            Style$BsReactNative.width(/* Pt */Block.__(0, [16])),
+            /* :: */[
+              Style$BsReactNative.height(/* Pt */Block.__(0, [16])),
+              /* :: */[
+                Style$BsReactNative.tintColor("#fff"),
+                /* [] */0
+              ]
+            ]
+          ]),
+      controlsIcon: Style$BsReactNative.style(/* :: */[
+            Style$BsReactNative.width(/* Pt */Block.__(0, [24])),
+            /* :: */[
+              Style$BsReactNative.height(/* Pt */Block.__(0, [24])),
+              /* :: */[
+                Style$BsReactNative.padding(/* Pt */Block.__(0, [8])),
+                /* [] */0
+              ]
+            ]
+          ]),
+      controlsIconEnabled: Style$BsReactNative.style(/* :: */[
+            Style$BsReactNative.tintColor("#1d8bf1"),
+            /* [] */0
+          ]),
+      controlsIconDisabled: Style$BsReactNative.style(/* :: */[
+            Style$BsReactNative.tintColor("#aaa"),
+            /* [] */0
+          ]),
+      lottieView: Style$BsReactNative.style(/* :: */[
+            Style$BsReactNative.position(/* Absolute */0),
+            /* :: */[
+              Style$BsReactNative.top(/* Pt */Block.__(0, [0])),
+              /* :: */[
+                Style$BsReactNative.bottom(/* Pt */Block.__(0, [0])),
+                /* :: */[
+                  Style$BsReactNative.left(/* Pt */Block.__(0, [0])),
+                  /* :: */[
+                    Style$BsReactNative.right(/* Pt */Block.__(0, [0])),
+                    /* [] */0
+                  ]
+                ]
+              ]
+            ]
+          ]),
+      lottieViewInverse: Style$BsReactNative.style(/* :: */[
+            Style$BsReactNative.backgroundColor("black"),
+            /* [] */0
+          ])
+    });
+
+function play(state) {
+  return Curry._3(Animated$BsReactNative.CompositeAnimation[/* start */1], Curry.app(Animated$BsReactNative.Value[/* Timing */19][/* animate */0], [
+                  state[/* progress */0],
+                  /* `raw */[
+                    5690856,
+                    1.0
+                  ],
+                  /* Some */[Animated$BsReactNative.Easing[/* linear */5]],
+                  /* Some */[state[/* duration */3]],
+                  /* None */0,
+                  /* None */0,
+                  /* None */0,
+                  /* None */0,
+                  /* None */0,
+                  /* () */0
+                ]), /* None */0, /* () */0);
+}
+
+function stop(state) {
+  return Curry._2(Animated$BsReactNative.Value[/* setValue */1], state[/* progress */0], 0);
+}
 
 function make() {
   var newrecord = component.slice();
-  newrecord[/* didMount */4] = (function (self) {
-      Curry._3(Animated$BsReactNative.CompositeAnimation[/* start */1], Curry.app(Animated$BsReactNative.Value[/* Timing */19][/* animate */0], [
-                self[/* state */2][/* progress */0],
-                /* `raw */[
-                  5690856,
-                  1.0
-                ],
-                /* Some */[Animated$BsReactNative.Easing[/* linear */5]],
-                /* Some */[10000.0],
-                /* None */0,
-                /* None */0,
-                /* None */0,
-                /* None */0,
-                /* None */0,
-                /* () */0
-              ]), /* None */0, /* () */0);
+  newrecord[/* didMount */4] = (function (param) {
+      play(param[/* state */2]);
       return /* NoUpdate */0;
     });
-  newrecord[/* render */9] = (function (self) {
-      return ReasonReact.element(/* None */0, /* None */0, LottieView$BsLottieReactNative.make(/* Local */Block.__(0, [animations.lottie1]), /* Some */[/* Animated */Block.__(0, [self[/* state */2][/* progress */0]])], /* None */0, /* None */0, /* Some */[/* true */1], /* None */0, /* array */[]));
+  newrecord[/* render */9] = (function (param) {
+      var send = param[/* send */4];
+      var state = param[/* state */2];
+      var match = state[/* loop */7];
+      var loopIconStyle = Style$BsReactNative.concat(/* :: */[
+            styles.controlsIcon,
+            /* :: */[
+              match !== 0 ? styles.controlsIconEnabled : Style$BsReactNative.style(/* [] */0),
+              /* [] */0
+            ]
+          ]);
+      var match$1 = state[/* isInverse */5];
+      var lottieInverseStyle = match$1 !== 0 ? styles.lottieViewInverse : Style$BsReactNative.style(/* [] */0);
+      var match$2 = state[/* example */2][/* width */2];
+      var lottieWidthStyle = match$2 ? Style$BsReactNative.style(/* :: */[
+              Style$BsReactNative.width(/* Pt */Block.__(0, [match$2[0]])),
+              /* [] */0
+            ]) : Style$BsReactNative.style(/* [] */0);
+      var match$3 = state[/* isPlaying */4];
+      return ReasonReact.element(/* None */0, /* None */0, View$BsReactNative.make(/* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[Style$BsReactNative.style(/* :: */[
+                              Style$BsReactNative.flex(1),
+                              /* [] */0
+                            ])], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[
+                      ReasonReact.element(/* None */0, /* None */0, ExamplePicker.make(state[/* example */2], (function (name) {
+                                  return Curry._1(send, /* ChangeExample */Block.__(0, [Example.findByName(name)]));
+                                }), Example.examples, /* array */[])),
+                      ReasonReact.element(/* None */0, /* None */0, View$BsReactNative.make(/* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[Style$BsReactNative.style(/* :: */[
+                                        Style$BsReactNative.flex(1),
+                                        /* :: */[
+                                          Style$BsReactNative.alignItems(/* Center */2),
+                                          /* :: */[
+                                            Style$BsReactNative.justifyContent(/* Center */2),
+                                            /* [] */0
+                                          ]
+                                        ]
+                                      ])], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[ReasonReact.element(/* None */0, /* None */0, LottieView$BsLottieReactNative.make(Curry._1(state[/* example */2][/* getJson */1], /* () */0), /* Some */[/* Animated */Block.__(0, [state[/* progress */0]])], /* None */0, /* None */0, /* Some */[state[/* loop */7]], /* Some */[Style$BsReactNative.flatten(/* array */[
+                                                styles.lottieView,
+                                                lottieInverseStyle,
+                                                lottieWidthStyle
+                                              ])], /* None */0, /* None */0, /* None */0, /* array */[]))])),
+                      ReasonReact.element(/* None */0, /* None */0, View$BsReactNative.make(/* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[Style$BsReactNative.style(/* :: */[
+                                        Style$BsReactNative.paddingBottom(/* Pt */Block.__(0, [20])),
+                                        /* :: */[
+                                          Style$BsReactNative.paddingHorizontal(/* Pt */Block.__(0, [10])),
+                                          /* [] */0
+                                        ]
+                                      ])], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[
+                                ReasonReact.element(/* None */0, /* None */0, View$BsReactNative.make(/* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[styles.controlsRow], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[
+                                          ReasonReact.element(/* None */0, /* None */0, TouchableOpacity$BsReactNative.make(/* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[(function () {
+                                                          return Curry._1(send, /* ToggleLoop */0);
+                                                        })], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[ReasonReact.element(/* None */0, /* None */0, Image$BsReactNative.make(/* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[/* contain */427065300], /* Some */[/* Required */Block.__(1, [loopIcon])], /* Some */[loopIconStyle], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[]))])),
+                                          ReasonReact.element(/* None */0, /* None */0, TouchableOpacity$BsReactNative.make(/* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[styles.playButton], /* None */0, /* Some */[(function () {
+                                                          return play(state);
+                                                        })], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[ReasonReact.element(/* None */0, /* None */0, Image$BsReactNative.make(/* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[/* contain */427065300], /* Some */[/* Required */Block.__(1, [match$3 !== 0 ? pauseIcon : playIcon])], /* Some */[styles.playButtonIcon], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[]))])),
+                                          ReasonReact.element(/* None */0, /* None */0, TouchableOpacity$BsReactNative.make(/* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[(function () {
+                                                          return Curry._1(send, /* ToggleInverse */1);
+                                                        })], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[ReasonReact.element(/* None */0, /* None */0, Image$BsReactNative.make(/* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[/* contain */427065300], /* Some */[/* Required */Block.__(1, [inverseIcon])], /* Some */[styles.controlsIcon], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[]))]))
+                                        ])),
+                                ReasonReact.element(/* None */0, /* None */0, View$BsReactNative.make(/* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[Style$BsReactNative.style(/* :: */[
+                                                  Style$BsReactNative.flexDirection(/* Row */0),
+                                                  /* :: */[
+                                                    Style$BsReactNative.justifyContent(/* SpaceBetween */5),
+                                                    /* :: */[
+                                                      Style$BsReactNative.paddingBottom(/* Pt */Block.__(0, [10])),
+                                                      /* [] */0
+                                                    ]
+                                                  ]
+                                                ])], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[
+                                          ReasonReact.element(/* None */0, /* None */0, Text$BsReactNative.make(/* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* array */["Use Imperative API:"])),
+                                          ReasonReact.element(/* None */0, /* None */0, View$BsReactNative.make(/* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[])),
+                                          ReasonReact.element(/* None */0, /* None */0, Switch$BsReactNative.make(/* None */0, /* None */0, /* Some */[(function () {
+                                                          return Curry._1(send, /* ToggleImperative */2);
+                                                        })], /* None */0, /* None */0, /* Some */[state[/* useImperative */6]], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[]))
+                                        ])),
+                                ReasonReact.element(/* None */0, /* None */0, View$BsReactNative.make(/* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[Style$BsReactNative.style(/* :: */[
+                                                  Style$BsReactNative.paddingBottom(/* Pt */Block.__(0, [10])),
+                                                  /* [] */0
+                                                ])], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[
+                                          ReasonReact.element(/* None */0, /* None */0, View$BsReactNative.make(/* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[ReasonReact.element(/* None */0, /* None */0, Text$BsReactNative.make(/* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* array */["Progress:"]))])),
+                                          ReasonReact.element(/* None */0, /* None */0, Slider$BsReactNative.make(/* Some */[state[/* useImperative */6]], /* None */0, /* Some */[1], /* None */0, /* Some */[0], /* None */0, /* Some */[(function (value) {
+                                                          return Curry._1(send, /* ChangeProgress */Block.__(1, [value]));
+                                                        })], /* None */0, /* Some */[state[/* rawProgress */1]], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[]))
+                                        ]))
+                              ]))
+                    ]));
     });
   newrecord[/* initialState */10] = (function () {
-      return /* record */[/* progress */Curry._1(Animated$BsReactNative.Value[/* create */0], 0.0)];
+      return /* record */[
+              /* progress */Curry._1(Animated$BsReactNative.Value[/* create */0], 0),
+              /* rawProgress */0,
+              /* example */Caml_array.caml_array_get(Example.examples, 0),
+              /* duration */3000.0,
+              /* isPlaying : true */1,
+              /* isInverse : false */0,
+              /* useImperative : false */0,
+              /* loop : true */1
+            ];
     });
-  newrecord[/* reducer */12] = (function (_, _$1) {
-      return /* NoUpdate */0;
+  newrecord[/* reducer */12] = (function (action, state) {
+      if (typeof action === "number") {
+        switch (action) {
+          case 0 : 
+              var newrecord = state.slice();
+              return /* Update */Block.__(0, [(newrecord[/* loop */7] = 1 - state[/* loop */7], newrecord)]);
+          case 1 : 
+              var newrecord$1 = state.slice();
+              return /* Update */Block.__(0, [(newrecord$1[/* isInverse */5] = 1 - state[/* isInverse */5], newrecord$1)]);
+          case 2 : 
+              var newrecord$2 = state.slice();
+              return /* UpdateWithSideEffects */Block.__(3, [
+                        (newrecord$2[/* useImperative */6] = 1 - state[/* useImperative */6], newrecord$2),
+                        (function (param) {
+                            return stop(param[/* state */2]);
+                          })
+                      ]);
+          
+        }
+      } else if (action.tag) {
+        var rawProgress = action[0];
+        var newrecord$3 = state.slice();
+        return /* Update */Block.__(0, [(newrecord$3[/* progress */0] = Curry._1(Animated$BsReactNative.Value[/* create */0], rawProgress), newrecord$3[/* rawProgress */1] = rawProgress, newrecord$3)]);
+      } else {
+        var newrecord$4 = state.slice();
+        return /* UpdateWithSideEffects */Block.__(3, [
+                  (newrecord$4[/* progress */0] = Curry._1(Animated$BsReactNative.Value[/* create */0], 0.0), newrecord$4[/* example */2] = action[0], newrecord$4),
+                  (function (param) {
+                      var state = param[/* state */2];
+                      play(state);
+                      Curry._2(Animated$BsReactNative.Value[/* addListener */5], state[/* progress */0], (function (value) {
+                              console.log(value);
+                              return /* () */0;
+                            }));
+                      return /* () */0;
+                    })
+                ]);
+      }
     });
   return newrecord;
 }
 
+var playButtonSize = 60;
+
 exports.component = component;
-exports.animations = animations;
+exports.playIcon = playIcon;
+exports.pauseIcon = pauseIcon;
+exports.loopIcon = loopIcon;
+exports.inverseIcon = inverseIcon;
+exports.playButtonSize = playButtonSize;
+exports.s = s;
+exports.styles = styles;
+exports.play = play;
+exports.stop = stop;
 exports.make = make;
 /* component Not a pure module */

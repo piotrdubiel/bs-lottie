@@ -2,21 +2,18 @@
 'use strict';
 
 var Js_option = require("bs-platform/lib/js/js_option.js");
-var Js_boolean = require("bs-platform/lib/js/js_boolean.js");
 var Js_mapperRt = require("bs-platform/lib/js/js_mapperRt.js");
 var ReasonReact = require("reason-react/lib/js/src/ReasonReact.js");
 var LottieReactNative = require("lottie-react-native");
+var Utils$BsLottieReactNative = require("./Utils.js");
 
 function sourceToJs(source) {
-  switch (source.tag | 0) {
-    case 0 : 
-    case 1 : 
-        return source[0];
-    case 2 : 
-        return {
-                uri: source[0]
-              };
-    
+  if (source.tag === 3) {
+    return {
+            uri: source[0]
+          };
+  } else {
+    return source[0];
   }
 }
 
@@ -47,7 +44,7 @@ function resizeModeFromJs(param) {
   return Js_mapperRt.revSearch(3, jsMapperConstantArray, param);
 }
 
-function make(source, progress, speed, autoPlay, loop, resizeMode, children) {
+function make(source, progress, speed, autoPlay, loop, style, resizeMode, imageAssetsFolder, hardwareAccelerationAndroid, children) {
   var tmp = {
     source: sourceToJs(source)
   };
@@ -60,17 +57,27 @@ function make(source, progress, speed, autoPlay, loop, resizeMode, children) {
   if (speed) {
     tmp.speed = speed[0];
   }
-  var tmp$2 = Js_option.map(Js_boolean.to_js_boolean, autoPlay);
+  var tmp$2 = Utils$BsLottieReactNative.optBoolToOptJsBoolean(autoPlay);
   if (tmp$2) {
     tmp.autoPlay = tmp$2[0];
   }
-  var tmp$3 = Js_option.map(Js_boolean.to_js_boolean, loop);
+  var tmp$3 = Utils$BsLottieReactNative.optBoolToOptJsBoolean(loop);
   if (tmp$3) {
     tmp.loop = tmp$3[0];
+  }
+  if (style) {
+    tmp.style = style[0];
   }
   var tmp$4 = Js_option.map(resizeModeToJs, resizeMode);
   if (tmp$4) {
     tmp.resizeMode = tmp$4[0];
+  }
+  if (imageAssetsFolder) {
+    tmp.imageAssetsFolder = imageAssetsFolder[0];
+  }
+  var tmp$5 = Utils$BsLottieReactNative.optBoolToOptJsBoolean(hardwareAccelerationAndroid);
+  if (tmp$5) {
+    tmp.hardwareAccelerationAndroid = tmp$5[0];
   }
   return ReasonReact.wrapJsForReason(LottieReactNative, tmp, children);
 }

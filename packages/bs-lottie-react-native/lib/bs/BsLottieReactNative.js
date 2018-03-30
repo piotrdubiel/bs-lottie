@@ -2,7 +2,10 @@
 'use strict';
 
 
+var Utils = 0;
+
 var LottieView = 0;
 
+exports.Utils = Utils;
 exports.LottieView = LottieView;
 /* No side effect */

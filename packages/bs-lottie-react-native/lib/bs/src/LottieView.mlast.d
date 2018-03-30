@@ -1,1 +1,1 @@
-src/LottieView-BsLottieReactNative.cmj :
+src/LottieView-BsLottieReactNative.cmj : src/Utils-BsLottieReactNative.cmj
