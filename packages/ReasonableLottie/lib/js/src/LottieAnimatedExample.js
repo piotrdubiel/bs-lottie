@@ -116,6 +116,11 @@ var styles = StyleSheet$BsReactNative.create({
           ])
     });
 
+function setLottieViewRef(theRef, param) {
+  param[/* state */2][/* lottieViewRef */8][0] = (theRef == null) ? /* None */0 : [theRef];
+  return /* () */0;
+}
+
 function make() {
   var newrecord = component.slice();
   newrecord[/* render */9] = (function (param) {
@@ -153,7 +158,7 @@ function make() {
                                             /* [] */0
                                           ]
                                         ]
-                                      ])], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[ReasonReact.element(/* None */0, /* None */0, LottieView$BsLottieReactNative.make(Curry._1(state[/* example */2][/* getJson */1], /* () */0), /* Some */[/* Animated */Block.__(0, [state[/* progress */0]])], /* None */0, /* None */0, /* Some */[state[/* loop */7]], /* Some */[Style$BsReactNative.flatten(/* array */[
+                                      ])], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[ReasonReact.element(/* None */0, /* Some */[Curry._1(param[/* handle */0], setLottieViewRef)], LottieView$BsLottieReactNative.make(Curry._1(state[/* example */2][/* getJson */1], /* () */0), /* Some */[/* Animated */Block.__(0, [state[/* progress */0]])], /* None */0, /* None */0, /* Some */[state[/* loop */7]], /* Some */[Style$BsReactNative.flatten(/* array */[
                                                 styles.lottieView,
                                                 lottieInverseStyle,
                                                 lottieWidthStyle
@@ -227,7 +232,8 @@ function make() {
               /* isPlaying : false */0,
               /* isInverse : false */0,
               /* useImperative : false */0,
-              /* loop : true */1
+              /* loop : true */1,
+              /* lottieViewRef */[/* None */0]
             ];
     });
   newrecord[/* reducer */12] = (function (action, state) {
@@ -254,28 +260,37 @@ function make() {
                         (function (param) {
                             var send = param[/* send */4];
                             var state = param[/* state */2];
-                            Curry._2(Animated$BsReactNative.Value[/* setValue */1], state[/* progress */0], 0);
-                            return Curry._3(Animated$BsReactNative.CompositeAnimation[/* start */1], Curry.app(Animated$BsReactNative.Value[/* Timing */19][/* animate */0], [
-                                            state[/* progress */0],
-                                            /* `raw */[
-                                              5690856,
-                                              1.0
-                                            ],
-                                            /* Some */[Animated$BsReactNative.Easing[/* linear */5]],
-                                            /* Some */[state[/* duration */3]],
-                                            /* None */0,
-                                            /* None */0,
-                                            /* None */0,
-                                            /* None */0,
-                                            /* None */0,
-                                            /* () */0
-                                          ]), /* Some */[(function (result) {
-                                            if (result.finished === true) {
-                                              return Curry._1(send, /* Played */4);
-                                            } else {
-                                              return 0;
-                                            }
-                                          })], /* () */0);
+                            if (state[/* useImperative */6]) {
+                              var match = state[/* lottieViewRef */8][0];
+                              if (match) {
+                                return match[0].play();
+                              } else {
+                                return /* () */0;
+                              }
+                            } else {
+                              Curry._2(Animated$BsReactNative.Value[/* setValue */1], state[/* progress */0], 0);
+                              return Curry._3(Animated$BsReactNative.CompositeAnimation[/* start */1], Curry.app(Animated$BsReactNative.Value[/* Timing */19][/* animate */0], [
+                                              state[/* progress */0],
+                                              /* `raw */[
+                                                5690856,
+                                                1.0
+                                              ],
+                                              /* Some */[Animated$BsReactNative.Easing[/* linear */5]],
+                                              /* Some */[state[/* duration */3]],
+                                              /* None */0,
+                                              /* None */0,
+                                              /* None */0,
+                                              /* None */0,
+                                              /* None */0,
+                                              /* () */0
+                                            ]), /* Some */[(function (result) {
+                                              if (result.finished === true) {
+                                                return Curry._1(send, /* Played */4);
+                                              } else {
+                                                return 0;
+                                              }
+                                            })], /* () */0);
+                            }
                           })
                       ]);
           case 4 : 
@@ -353,5 +368,6 @@ exports.inverseIcon = inverseIcon;
 exports.playButtonSize = playButtonSize;
 exports.s = s;
 exports.styles = styles;
+exports.setLottieViewRef = setLottieViewRef;
 exports.make = make;
 /* component Not a pure module */

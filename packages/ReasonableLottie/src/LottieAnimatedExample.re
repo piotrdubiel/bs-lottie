@@ -10,7 +10,8 @@ type state = {
   isPlaying: bool,
   isInverse: bool,
   useImperative: bool,
-  loop: bool
+  loop: bool,
+  lottieViewRef: ref(option(ReasonReact.reactRef))
 };
 
 type action =
@@ -70,6 +71,9 @@ let styles =
     )
   );
 
+let setLottieViewRef = (theRef, {ReasonReact.state}) =>
+  state.lottieViewRef := Js.Nullable.toOption(theRef);
+
 let make = (_children) => {
   ...component,
   initialState: () => {
@@ -80,7 +84,8 @@ let make = (_children) => {
     isPlaying: false,
     isInverse: false,
     useImperative: false,
-    loop: true
+    loop: true,
+    lottieViewRef: ref(None)
   },
   subscriptions: ({state, send}) => [
     Sub(
@@ -110,24 +115,30 @@ let make = (_children) => {
       ReasonReact.UpdateWithSideEffects(
         {...state, isPlaying: true},
         (
-          ({state, send}) => {
-            Animated.Value.setValue(state.progress, 0.);
-            Animated.CompositeAnimation.start(
-              Animated.Timing.animate(
-                ~value=state.progress,
-                ~toValue=`raw(1.0),
-                ~easing=Animated.Easing.linear,
-                ~duration=state.duration,
+          ({state, send}) =>
+            if (state.useImperative) {
+              switch state.lottieViewRef^ {
+              | None => ()
+              | Some(r) => ReasonReact.refToJsObj(r)##play()
+              }
+            } else {
+              Animated.Value.setValue(state.progress, 0.);
+              Animated.CompositeAnimation.start(
+                Animated.Timing.animate(
+                  ~value=state.progress,
+                  ~toValue=`raw(1.0),
+                  ~easing=Animated.Easing.linear,
+                  ~duration=state.duration,
+                  ()
+                ),
+                ~callback=
+                  (result) =>
+                    if (result##finished == Js.true_) {
+                      send(Played)
+                    },
                 ()
-              ),
-              ~callback=
-                (result) =>
-                  if (result##finished == Js.true_) {
-                    send(Played)
-                  },
-              ()
-            )
-          }
+              )
+            }
         )
       )
     | Played =>
@@ -146,7 +157,7 @@ let make = (_children) => {
         (({state}) => Animated.Value.setValue(state.progress, state.rawProgress))
       )
     },
-  render: ({state, send}) => {
+  render: ({state, send, handle}) => {
     let loopIconStyle =
       Style.concat([
         styles##controlsIcon,
@@ -168,6 +179,7 @@ let make = (_children) => {
       />
       <View style=Style.(style([flex(1.), alignItems(Center), justifyContent(Center)]))>
         <LottieView
+          ref=(handle(setLottieViewRef))
           style=Style.(flatten([|styles##lottieView, lottieInverseStyle, lottieWidthStyle|]))
           loop=state.loop
           source=(state.example.getJson())
