@@ -5,7 +5,6 @@ var Block = require("bs-platform/lib/js/block.js");
 var Curry = require("bs-platform/lib/js/curry.js");
 var Example = require("./Example.js");
 var Caml_array = require("bs-platform/lib/js/caml_array.js");
-var Pervasives = require("bs-platform/lib/js/pervasives.js");
 var ReasonReact = require("reason-react/lib/js/src/ReasonReact.js");
 var ExamplePicker = require("./ExamplePicker.js");
 var Text$BsReactNative = require("bs-react-native/lib/js/src/components/text.js");
@@ -215,7 +214,7 @@ function make() {
                                                   Style$BsReactNative.paddingBottom(/* Pt */Block.__(0, [10])),
                                                   /* [] */0
                                                 ])], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[
-                                          ReasonReact.element(/* None */0, /* None */0, View$BsReactNative.make(/* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[ReasonReact.element(/* None */0, /* None */0, Text$BsReactNative.make(/* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* array */["Duration: " + (Pervasives.string_of_float(Math.round(state[/* duration */3])) + "ms")]))])),
+                                          ReasonReact.element(/* None */0, /* None */0, View$BsReactNative.make(/* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[ReasonReact.element(/* None */0, /* None */0, Text$BsReactNative.make(/* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* array */["Duration: " + (String(Math.round(state[/* duration */3]) | 0) + "ms")]))])),
                                           ReasonReact.element(/* None */0, /* None */0, Slider$BsReactNative.make(/* Some */[state[/* useImperative */6]], /* None */0, /* Some */[10000], /* None */0, /* Some */[50], /* None */0, /* Some */[(function (value) {
                                                           return Curry._1(send, /* ChangeDuration */Block.__(3, [value]));
                                                         })], /* None */0, /* Some */[state[/* duration */3]], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[]))

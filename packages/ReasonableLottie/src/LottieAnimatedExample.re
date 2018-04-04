@@ -225,7 +225,13 @@ let make = (_children) => {
         <View style=Style.(style([paddingBottom(Pt(10.))]))>
           <View>
             <Text>
-              (s("Duration: " ++ string_of_float(Js.Math.round(state.duration)) ++ "ms"))
+              (
+                s(
+                  "Duration: "
+                  ++ (state.duration |> Js.Math.round |> int_of_float |> string_of_int)
+                  ++ "ms"
+                )
+              )
             </Text>
           </View>
           <Slider
