@@ -15,7 +15,7 @@ See `packages/ReasonableLottie`. It's the original lottie-react-native example r
 ```reason
 open BsReactNative;
 
-open BsLottieReactNative;
+open LottieReactNative;
 
 let component = ReasonReact.statelessComponent("Example");
 
@@ -27,13 +27,18 @@ let make = (children) => {
 
 ## Installation
 
-1. setup your React Native project according to http://airbnb.io/lottie/react-native/react-native.html
-1. install this bindings
-        
-        $ yarn add bs-lottie-react-native bs-react-native reason-react
-1.  add `bs-lottie-react-native` (and "bs-react-native", "reason-react" if they arent't there yet) to `bs-dependencies` in your `bsconfig.json`
+Setup your React Native project according to [http://airbnb.io/lottie/react-native/react-native.html](http://airbnb.io/lottie/react-native/react-native.html)
 
-        {
-        ...
-        "bs-dependencies": ["bs-react-native", "reason-react", "bs-lottie-react-native"]
-        }
+Install this bindings with its peer dependencies
+
+```bash
+yarn add bs-lottie-react-native bs-react-native reason-react
+```
+
+Add `bs-lottie-react-native` (and "bs-react-native", "reason-react" if they arent't there yet) to `bs-dependencies` in your `bsconfig.json`
+
+```json
+{
+  "bs-dependencies": ["bs-react-native", "reason-react", "bs-lottie-react-native"]
+}
+```

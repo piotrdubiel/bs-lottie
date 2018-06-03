@@ -1,0 +1,163 @@
+
+    
+<!doctype html>
+<meta charset=utf8>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel=stylesheet href='./styles.css'>
+<script defer src='./script.js'></script>
+<title>Home</title>
+<body>
+<script>window.relativeToRoot="."</script>
+<div id='error-message'>
+  ⚠️ Oops! This page doesn't appear to define a <span>type</span> called <code>_</code>.
+</div>
+
+    
+    <div class='container'>
+    
+    <div class='sidebar-wrapper'>
+    <div class='sidebar-expander'>Show navigation</div>
+    <div class='sidebar'>
+      <a href="./search.html" style="display: block; padding: 0 8px;">Search</a>
+      <div class='docs-listing'><a href="./index.html">Home</a></div>
+      <div class='table-of-contents'>
+      <div class='toc-header'>Page Contents</div>
+      <a href="#bs-lottie-react-native" class='level-1 header'>bs-lottie-react-native</a>
+<a href="#bucklescript-bindings-for-lottie-for-react-native" class='level-2 header'><a href="https://github.com/bucklescript/bucklescript" target="_blank" rel="noopener nofollow" title="" class="external-link">BuckleScript</a> bindings for <a href="https://github.com/airbnb/lottie-react-native" target="_blank" rel="noopener nofollow" title="" class="external-link">Lottie for React Native</a></a>
+<a href="#example" class='level-2 header'>Example</a>
+<a href="#tl-dr" class='level-3 header'>TL;DR</a>
+<a href="#installation" class='level-2 header'>Installation</a>
+      </div>
+      <div class='project-listing'><div class='project-title'>Package modules</div><a href="./api/LottieReactNative.html">LottieReactNative</a>
+<a href="./api/LottieView.html">LottieView</a></div>
+    </div>
+    </div>
+  
+    <div class='main'>
+    <a href="https://github.com/piotrdubiel/bs-lottie/blob/master/docs/../README.md" class="edit-link">Edit</a>
+    <a href="#bs-lottie-react-native" id="bs-lottie-react-native"><h1>bs-lottie-react-native</h1></a>
+
+<a href="#bucklescript-bindings-for-lottie-for-react-native" id="bucklescript-bindings-for-lottie-for-react-native"><h2><a href="https://github.com/bucklescript/bucklescript" target="_blank" rel="noopener nofollow" title="" class="external-link">BuckleScript</a> bindings for <a href="https://github.com/airbnb/lottie-react-native" target="_blank" rel="noopener nofollow" title="" class="external-link">Lottie for React Native</a></h2></a>
+
+<p><a href="https://www.npmjs.com/package/bs-lottie-react-native" target="_blank" rel="noopener nofollow" title="" class="external-link"><img src='https://img.shields.io/npm/v/bs-lottie-react-native.svg?style=flat-square' alt='npm (scoped)' /></a></p>
+<p><hr/></p>
+<a href="#example" id="example"><h2>Example</h2></a>
+
+<p>See <code>packages/ReasonableLottie</code>. It&#39;s the original lottie-react-native example recreated in ReasonML.</p>
+<a href="#tl-dr" id="tl-dr"><h3>TL;DR</h3></a>
+
+<div class='code-block'>
+  <pre class='code' data-block-id='0' id='block-0'><code>open LottieReactNative;
+
+let <span class='pattern-ident' data-type="ReasonReact.componentSpec(
+    ReasonReact.stateless,
+    ReasonReact.stateless,
+    ReasonReact.noRetainedProps,
+    ReasonReact.noRetainedProps,
+    ReasonReact.actionless
+)">component</span> = <span class='ident' data-type="string => ReasonReact.componentSpec(
+    ReasonReact.stateless,
+    ReasonReact.stateless,
+    ReasonReact.noRetainedProps,
+    ReasonReact.noRetainedProps,
+    ReasonReact.actionless
+)">ReasonReact.statelessComponent</span>(<span class='string' data-type="string">&quot;Example&quot;</span>);
+
+let <span class='pattern-ident' data-type="'a => 'a">make</span> = (<span class='pattern-ident' data-type="'a">children</span>) =&gt; {
+  ...<span class='ident' data-type="ReasonReact.componentSpec(
+    ReasonReact.stateless,
+    ReasonReact.stateless,
+    ReasonReact.noRetainedProps,
+    ReasonReact.noRetainedProps,
+    ReasonReact.actionless
+)">component</span>,
+  render: (<span class='pattern-ident' data-type="ReasonReact.self('a, 'a, 'a)">self</span>) =&gt; <span class='ident' data-type="(
+    ~source: LottieReactNative.LottieView.source,
+    ~?progress: option(
+        LottieReactNative.LottieView.progress
+    ),
+    ~?speed: option(float),
+    ~?autoPlay: option(bool),
+    ~?loop: option(bool),
+    ~?style: option(BsReactNative.Style.t),
+    ~?resizeMode: option(
+        LottieReactNative.LottieView.resizeMode
+    ),
+    ~?imageAssetsFolder: option(string),
+    ~?hardwareAccelerationAndroid: option(bool),
+    ~?enableMergePathsAndroidForKitKatAndAbove: option(
+        bool
+    ),
+    array(
+        ReasonReact.reactElement
+    )
+) => ReasonReact.component(
+    ReasonReact.stateless,
+    ReasonReact.noRetainedProps,
+    ReasonReact.actionless
+)"><span class='ident' data-type="(
+    ~?key: option(string),
+    ~?ref: option(
+        Js.nullable(ReasonReact.reactRef) => unit
+    ),
+    ReasonReact.component(
+        'a,
+        'a,
+        'a
+    )
+) => ReasonReact.reactElement">&lt;LottieView source=(<span class='constructor' data-type="LottieReactNative.LottieView.source">Required</span>(Packager.require(&quot;./animation.json&quot;))) /&gt;</span></span>
+};</code></pre>
+  <script type='docre-source' data-block-id="0">
+open LottieReactNative;
+
+let component = ReasonReact.statelessComponent("Example");
+
+let make = (children) => {
+  ...component,
+  render: (self) => <LottieView source=(Required(Packager.require("./animation.json"))) />
+};</script>
+  <div class='type-error'>Type Error:\nFile &quot;&quot;, line 7, characters 49-65:
+Error: Unbound module Packager</div>
+</div>
+
+<a href="#installation" id="installation"><h2>Installation</h2></a>
+
+<p>Setup your React Native project according to <a href="http://airbnb.io/lottie/react-native/react-native.html" target="_blank" rel="noopener nofollow" title="" class="external-link">http://airbnb.io/lottie/react-native/react-native.html</a></p>
+<p>Install this bindings with its peer dependencies</p>
+<pre class='bash'><code class='bash'>yarn add bs-lottie-react-native bs-react-native reason-react</code></pre>
+
+<p>Add <code>bs-lottie-react-native</code> (and &quot;bs-react-native&quot;, &quot;reason-react&quot; if they arent&#39;t there yet) to <code>bs-dependencies</code> in your <code>bsconfig.json</code></p>
+<div class='code-block'>
+  <pre class='code' data-block-id='1' id='block-1'><code><span class='type-vbl'><span class='type-constructor'><span class='type-vbl'><span class='ident' data-type="(~bs-dependencies: list(string)) => Js.t(
+    &lt; bs-dependencies : string list &gt;
+)">{
+  &quot;bs-dependencies&quot;: [<span data-type="list(string)"><span class='string' data-type="string">&quot;bs-react-native&quot;</span>, <span data-type="list(string)"><span class='string' data-type="string">&quot;reason-react&quot;</span>, <span data-type="list(string)"><span class='string' data-type="string">&quot;bs-lottie-react-native&quot;</span></span></span></span>]
+}</span></span></span></span></code></pre>
+  <script type='docre-source' data-block-id="1">{
+  "bs-dependencies": ["bs-react-native", "reason-react", "bs-lottie-react-native"]
+}</script>
+  <div data-block-id='1' data-context="normal" class='block-target'></div><script type='docre-bundle' data-block-id='1'>
+;(function() { // generated by pack.re
+let modules = {}
+let initializers = {
+    1: function(module, exports, require) {// Generated by BUCKLESCRIPT VERSION 2.2.3, PLEASE EDIT WITH CARE
+/* This output is empty. Its source's type definitions, externals and/or unused code got optimized away. */
+//# sourceURL=./node_modules/.docre/DOCRE_CODE_BLOCK_1.re_ppx.js
+}
+};
+let nameMap = {
+  "./node_modules/.docre/DOCRE_CODE_BLOCK_1.re_ppx.js": 1
+}
+let require = (id) => {
+  if (!modules[id]) {
+    modules[id] = {exports: {}}
+    initializers[id](modules[id], modules[id].exports, require)
+  }
+  return modules[id].exports
+};
+  require(1)})();</script>
+</div>
+    </div>
+    <div class='right-blank'></div>
+    </div>
+  

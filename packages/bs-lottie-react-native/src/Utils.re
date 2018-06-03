@@ -1,1 +1,0 @@
-let optBoolToOptJsBoolean = (optValue) => Js.Option.map((. value) => Js.Boolean.to_js_boolean(value), optValue);

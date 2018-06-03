@@ -5,6 +5,7 @@ var Block = require("bs-platform/lib/js/block.js");
 var Curry = require("bs-platform/lib/js/curry.js");
 var Example = require("./Example.js");
 var Caml_array = require("bs-platform/lib/js/caml_array.js");
+var LottieView = require("bs-lottie-react-native/lib/js/src/LottieView.js");
 var ReasonReact = require("reason-react/lib/js/src/ReasonReact.js");
 var ExamplePicker = require("./ExamplePicker.js");
 var Text$BsReactNative = require("bs-react-native/lib/js/src/components/text.js");
@@ -15,7 +16,6 @@ var Slider$BsReactNative = require("bs-react-native/lib/js/src/components/slider
 var Switch$BsReactNative = require("bs-react-native/lib/js/src/components/switch.js");
 var Animated$BsReactNative = require("bs-react-native/lib/js/src/animated.js");
 var StyleSheet$BsReactNative = require("bs-react-native/lib/js/src/styleSheet.js");
-var LottieView$BsLottieReactNative = require("bs-lottie-react-native/lib/js/src/LottieView.js");
 var TouchableOpacity$BsReactNative = require("bs-react-native/lib/js/src/components/touchableOpacity.js");
 
 var component = ReasonReact.reducerComponent("LottieAnimatedExample");
@@ -157,7 +157,7 @@ function make() {
                                             /* [] */0
                                           ]
                                         ]
-                                      ])], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[ReasonReact.element(/* None */0, /* Some */[Curry._1(param[/* handle */0], setLottieViewRef)], LottieView$BsLottieReactNative.make(Curry._1(state[/* example */2][/* getJson */1], /* () */0), /* Some */[/* Animated */Block.__(0, [state[/* progress */0]])], /* None */0, /* None */0, /* Some */[state[/* loop */7]], /* Some */[Style$BsReactNative.flatten(/* array */[
+                                      ])], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0)(/* array */[ReasonReact.element(/* None */0, /* Some */[Curry._1(param[/* handle */0], setLottieViewRef)], LottieView.make(Curry._1(state[/* example */2][/* getJson */1], /* () */0), /* Some */[/* Animated */Block.__(0, [state[/* progress */0]])], /* None */0, /* None */0, /* Some */[state[/* loop */7]], /* Some */[Style$BsReactNative.flatten(/* array */[
                                                 styles.lottieView,
                                                 lottieInverseStyle,
                                                 lottieWidthStyle

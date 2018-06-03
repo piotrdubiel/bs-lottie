@@ -1,6 +1,6 @@
 open BsReactNative;
 
-open BsLottieReactNative;
+open LottieReactNative;
 
 let component = ReasonReact.statelessComponent("Example");
 

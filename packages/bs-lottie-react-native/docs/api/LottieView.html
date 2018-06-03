@@ -1,0 +1,112 @@
+
+    
+<!doctype html>
+<meta charset=utf8>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel=stylesheet href='../styles.css'>
+<script defer src='../script.js'></script>
+<title>LottieView</title>
+<body>
+<script>window.relativeToRoot=".."</script>
+<div id='error-message'>
+  ⚠️ Oops! This page doesn't appear to define a <span>type</span> called <code>_</code>.
+</div>
+
+    <script>window.shouldCheckHashes=true</script>
+    <div class='container'>
+    
+    <div class='sidebar-wrapper'>
+    <div class='sidebar-expander'>Show navigation</div>
+    <div class='sidebar'>
+      <a href="../search.html" style="display: block; padding: 0 8px;">Search</a>
+      <div class='docs-listing'><a href="../index.html">Home</a></div>
+      <div class='table-of-contents'>
+      <div class='toc-header'>Page Contents</div>
+      <a href="#LottieView" class='level-1 header'>LottieView</a>
+<a href="#type-asset" class='level-2 type'>asset</a>
+<a href="#type-layer" class='level-2 type'>layer</a>
+<a href="#type-animationObject" class='level-2 type'>animationObject</a>
+<a href="#type-source" class='level-2 type'>source</a>
+<a href="#type-progress" class='level-2 type'>progress</a>
+<a href="#type-resizeMode" class='level-2 type'>resizeMode</a>
+<a href="#value-make" class='level-2 value'>make</a>
+      </div>
+      <div class='project-listing'><div class='project-title'>Package modules</div><a href="LottieReactNative.html">LottieReactNative</a>
+<a href="LottieView.html">LottieView</a></div>
+    </div>
+    </div>
+  
+    <div class='main'>
+    <a href="https://github.com/piotrdubiel/bs-lottie/blob/master/./src/LottieView.rei" class="edit-link">Edit</a>
+    <a href="#LottieView" id="LottieView"><h1>LottieView</h1></a>
+
+<p><span class='missing'>This module does not have a toplevel documentation block.</span></p>
+<div class='doc-item'><h4 class='item'>type <a href="#type-asset" id="type-asset">asset</a></h4>
+
+<div class='body body-empty'></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-layer" id="type-layer">layer</a></h4>
+
+<div class='body body-empty'></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-animationObject" id="type-animationObject">animationObject</a> = {
+    v: string,
+    fr: float,
+    ip: int,
+    op: float,
+    w: int,
+    h: int,
+    nm: string,
+    ddd: int,
+    assets: array(<a href="#type-asset">asset</a>),
+    layers: array(<a href="#type-layer">layer</a>)
+}</h4>
+
+<div class='body body-empty'></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-source" id="type-source">source</a> = 
+    | Local(string)
+    | AnimationObject(<a href="#type-animationObject">animationObject</a>)
+    | Required(BsReactNative.Packager.required)
+    | Remote(string)</h4>
+
+<div class='body body-empty'></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-progress" id="type-progress">progress</a> = 
+    | Animated(BsReactNative.Animated.Value.t)
+    | Float(float)</h4>
+
+<div class='body body-empty'></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-resizeMode" id="type-resizeMode">resizeMode</a> = [ `cover | `contain | `center ]</h4>
+
+<div class='body body-empty'></div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-make" id="value-make">make</a> = (
+    ~source: <a href="#type-source">source</a>,
+    ~?progress: option(<a href="#type-progress">progress</a>),
+    ~?speed: option(float),
+    ~?autoPlay: option(bool),
+    ~?loop: option(bool),
+    ~?style: option(BsReactNative.Style.t),
+    ~?resizeMode: option(<a href="#type-resizeMode">resizeMode</a>),
+    ~?imageAssetsFolder: option(string),
+    ~?hardwareAccelerationAndroid: option(bool),
+    ~?enableMergePathsAndroidForKitKatAndAbove: option(
+        bool
+    ),
+    array(
+        ReasonReact.reactElement
+    )
+) => ReasonReact.component(
+    ReasonReact.stateless,
+    ReasonReact.noRetainedProps,
+    ReasonReact.actionless
+)</h4>
+
+<div class='body body-empty'></div></div>
+
+    </div>
+    <div class='right-blank'></div>
+    </div>
+  

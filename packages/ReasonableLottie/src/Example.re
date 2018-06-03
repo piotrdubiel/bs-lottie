@@ -1,5 +1,3 @@
-open BsLottieReactNative;
-
 open BsReactNative;
 
 type t = {

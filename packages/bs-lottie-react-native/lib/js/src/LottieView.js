@@ -2,10 +2,14 @@
 'use strict';
 
 var Js_option = require("bs-platform/lib/js/js_option.js");
+var Js_boolean = require("bs-platform/lib/js/js_boolean.js");
 var Js_mapperRt = require("bs-platform/lib/js/js_mapperRt.js");
 var ReasonReact = require("reason-react/lib/js/src/ReasonReact.js");
 var LottieReactNative = require("lottie-react-native");
-var Utils$BsLottieReactNative = require("./Utils.js");
+
+function optBoolToOptJsBoolean(optValue) {
+  return Js_option.map(Js_boolean.to_js_boolean, optValue);
+}
 
 function sourceToJs(source) {
   if (source.tag === 3) {
@@ -15,10 +19,6 @@ function sourceToJs(source) {
   } else {
     return source[0];
   }
-}
-
-function progressToJs(progress) {
-  return progress[0];
 }
 
 var jsMapperConstantArray = /* array */[
@@ -36,14 +36,6 @@ var jsMapperConstantArray = /* array */[
   ]
 ];
 
-function resizeModeToJs(param) {
-  return Js_mapperRt.binarySearch(3, param, jsMapperConstantArray);
-}
-
-function resizeModeFromJs(param) {
-  return Js_mapperRt.revSearch(3, jsMapperConstantArray, param);
-}
-
 function make(source, progress, speed, autoPlay, loop, style, resizeMode, imageAssetsFolder, hardwareAccelerationAndroid, enableMergePathsAndroidForKitKatAndAbove, children) {
   var tmp = {
     source: sourceToJs(source)
@@ -57,38 +49,36 @@ function make(source, progress, speed, autoPlay, loop, style, resizeMode, imageA
   if (speed) {
     tmp.speed = speed[0];
   }
-  var tmp$2 = Utils$BsLottieReactNative.optBoolToOptJsBoolean(autoPlay);
+  var tmp$2 = optBoolToOptJsBoolean(autoPlay);
   if (tmp$2) {
     tmp.autoPlay = tmp$2[0];
   }
-  var tmp$3 = Utils$BsLottieReactNative.optBoolToOptJsBoolean(loop);
+  var tmp$3 = optBoolToOptJsBoolean(loop);
   if (tmp$3) {
     tmp.loop = tmp$3[0];
   }
   if (style) {
     tmp.style = style[0];
   }
-  var tmp$4 = Js_option.map(resizeModeToJs, resizeMode);
+  var tmp$4 = Js_option.map((function (mode) {
+          return Js_mapperRt.binarySearch(3, mode, jsMapperConstantArray);
+        }), resizeMode);
   if (tmp$4) {
     tmp.resizeMode = tmp$4[0];
   }
   if (imageAssetsFolder) {
     tmp.imageAssetsFolder = imageAssetsFolder[0];
   }
-  var tmp$5 = Utils$BsLottieReactNative.optBoolToOptJsBoolean(hardwareAccelerationAndroid);
+  var tmp$5 = optBoolToOptJsBoolean(hardwareAccelerationAndroid);
   if (tmp$5) {
     tmp.hardwareAccelerationAndroid = tmp$5[0];
   }
-  var tmp$6 = Utils$BsLottieReactNative.optBoolToOptJsBoolean(enableMergePathsAndroidForKitKatAndAbove);
+  var tmp$6 = optBoolToOptJsBoolean(enableMergePathsAndroidForKitKatAndAbove);
   if (tmp$6) {
     tmp.enableMergePathsAndroidForKitKatAndAbove = tmp$6[0];
   }
   return ReasonReact.wrapJsForReason(LottieReactNative, tmp, children);
 }
 
-exports.sourceToJs = sourceToJs;
-exports.progressToJs = progressToJs;
-exports.resizeModeToJs = resizeModeToJs;
-exports.resizeModeFromJs = resizeModeFromJs;
 exports.make = make;
 /* ReasonReact Not a pure module */
