@@ -15,5 +15,11 @@
       "subdirs": true
     }
   ],
-  "bs-dependencies": ["reason-react", "reason-react-native"]
+  "bs-dependencies": [
+    "reason-react",
+    "reason-react-native",
+    "@reason-react-native/picker",
+    "@reason-react-native/slider",
+    "../../bs-lottie-react-native"
+  ]
 }
