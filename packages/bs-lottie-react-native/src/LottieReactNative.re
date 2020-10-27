@@ -1,1 +1,0 @@
-module LottieView = LottieView;

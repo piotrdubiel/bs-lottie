@@ -1,40 +1,60 @@
-open BsReactNative;
+open ReactNative;
+open Lottie;
 
 type t = {
   name: string,
-  getJson: unit => LottieView.source,
-  width: option(float)
+  getJson: unit => Source.t,
+  width: option(float),
 };
 
-let makeExample = (~width=?, name, getJson) : t => {name, getJson, width};
+let makeExample = (~width=?, name, getJson): t => {name, getJson, width};
 
 let examples = [|
-  makeExample(
-    "Hamburger Arrow",
-    () => Required(Packager.require("./animations/HamburgerArrow.json"))
+  makeExample("Hamburger Arrow", () =>
+    Source.fromRequired(Packager.require("./animations/HamburgerArrow.json"))
   ),
   makeExample(
     "Hamburger Arrow (200 px)",
-    () => Required(Packager.require("./animations/HamburgerArrow.json")),
-    ~width=200.
+    () =>
+      Source.fromRequired(
+        Packager.require("./animations/HamburgerArrow.json"),
+      ),
+    ~width=200.,
   ),
-  makeExample(
-    "Line Animation",
-    () => Required(Packager.require("./animations/LineAnimation.json"))
+  makeExample("Line Animation", () =>
+    Source.fromRequired(Packager.require("./animations/LineAnimation.json"))
   ),
-  makeExample("Lottie Logo 1", () => Required(Packager.require("./animations/LottieLogo1.json"))),
-  makeExample("Lottie Logo 2", () => Required(Packager.require("./animations/LottieLogo2.json"))),
-  makeExample(
-    "Lottie Walkthrough",
-    () => Required(Packager.require("./animations/LottieWalkthrough.json"))
+  makeExample("Lottie Logo 1", () =>
+    Source.fromRequired(Packager.require("./animations/LottieLogo1.json"))
   ),
-  makeExample("Pin Jump", () => Required(Packager.require("./animations/PinJump.json"))),
-  makeExample("Twitter Heart", () => Required(Packager.require("./animations/TwitterHeart.json"))),
-  makeExample("Watermelon", () => Required(Packager.require("./animations/Watermelon.json"))),
-  makeExample(
-    "Motion Corpse",
-    () => Required(Packager.require("./animations/MotionCorpse-Jrcanest.json"))
-  )
+  makeExample("Lottie Logo 2", () =>
+    Source.fromRequired(Packager.require("./animations/LottieLogo2.json"))
+  ),
+  makeExample("Lottie Walkthrough", () =>
+    Source.fromRequired(
+      Packager.require("./animations/LottieWalkthrough.json"),
+    )
+  ),
+  makeExample("Pin Jump", () =>
+    Source.fromRequired(Packager.require("./animations/PinJump.json"))
+  ),
+  makeExample("Twitter Heart", () =>
+    Source.fromRequired(Packager.require("./animations/TwitterHeart.json"))
+  ),
+  makeExample("Watermelon", () =>
+    Source.fromRequired(Packager.require("./animations/Watermelon.json"))
+  ),
+  makeExample("Motion Corpse", () =>
+    Source.fromRequired(
+      Packager.require("./animations/MotionCorpse-Jrcanest.json"),
+    )
+  ),
+  makeExample("9 Squares", () =>
+    Source.fromRequired(
+      Packager.require("./animations/9squares-AlBoardman.json"),
+    )
+  ),
 |];
 
-let findByName = (name) => List.find((example) => example.name == name, Array.to_list(examples));
+let findByName = name =>
+  List.find(example => example.name == name, Array.to_list(examples));
