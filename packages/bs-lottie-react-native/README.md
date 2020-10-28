@@ -13,15 +13,11 @@ See `packages/ReasonableLottie`. It's the original lottie-react-native example r
 ### TL;DR
 
 ```reason
-open BsReactNative;
+open ReactNative;
 
-open LottieReactNative;
-
-let component = ReasonReact.statelessComponent("Example");
-
-let make = (children) => {
-  ...component,
-  render: (self) => <LottieView source=(Required(Packager.require("./animation.json"))) />
+[@react.component]
+let make = () => {
+  render: () => <Lottie source=(Required(Packager.require("./animation.json"))) />
 };
 ```
 
