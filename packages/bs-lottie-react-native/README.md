@@ -17,7 +17,7 @@ open ReactNative;
 
 [@react.component]
 let make = () => {
-  render: () => <Lottie source=(Required(Packager.require("./animation.json"))) />
+  <Lottie source=(Required(Packager.require("./animation.json"))) />
 };
 ```
 
@@ -28,13 +28,17 @@ Setup your React Native project according to [http://airbnb.io/lottie/react-nati
 Install this bindings with its peer dependencies
 
 ```bash
-yarn add bs-lottie-react-native bs-react-native reason-react
+yarn add bs-lottie-react-native reason-react-native reason-react
 ```
 
-Add `bs-lottie-react-native` (and "bs-react-native", "reason-react" if they arent't there yet) to `bs-dependencies` in your `bsconfig.json`
+Add `bs-lottie-react-native` (and "reaon-react-native", "reason-react" if they arent't there yet) to `bs-dependencies` in your `bsconfig.json`
 
 ```json
 {
-  "bs-dependencies": ["bs-react-native", "reason-react", "bs-lottie-react-native"]
+  "bs-dependencies": [
+    "reason-react",
+    "reason-react-native",
+    "bs-lottie-react-native"
+  ]
 }
 ```

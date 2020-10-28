@@ -26,7 +26,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "bs-platform": "^8.3.1",
+    "bs-platform": "8.2.0",
     "reason-react-native": "^0.62.0",
     "reason-react": "^0.9.1"
   },
